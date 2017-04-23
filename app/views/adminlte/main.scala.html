@@ -1,0 +1,45 @@
+@(title: String)(webJarAssets: WebJarAssets)(content: Html)(customScripts: Html)
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Play with Github</title>
+            <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+        @stylesheet(title)(webJarAssets)
+
+    </head>
+
+    <body class="skin-blue-light sidebar-mini fixed">
+
+        <div class="wrapper">
+
+            @header.mainHeader(title)
+
+            <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">@content</div>
+            <!-- /.content-wrapper -->
+
+            @footer(title)
+
+        </div>
+            <!-- ./wrapper -->
+
+            <!-- REQUIRED JS SCRIPTS -->
+        @script(title)(webJarAssets)
+
+        @customScripts
+
+        <script type="application/javascript">
+			$(function() {
+                // Hide the alert
+                setTimeout(function() {
+                    $(".callout").hide();
+                }, 2000);
+            });
+		</script>
+
+    </body>
+</html>

@@ -1,0 +1,11 @@
+@(contributors: List[ContributorStats])
+
+<ul class="users-list clearfix">
+    @contributors.map { contributor =>
+        <li>
+            <img style="height: 128px;" src="@contributor.author.avatar_url" alt="User Image">
+            <a class="users-list-name" target="_blank" href="@contributor.author.html_url">@contributor.author.login</a>
+            <span class="users-list-date">@contributor.total Commits</span>
+        </li>
+    }
+</ul><!-- /.users-list -->

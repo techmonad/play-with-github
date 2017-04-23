@@ -1,0 +1,7 @@
+.main-header .logo {
+    height: 60px;
+}
+
+.content-wrapper, .right-side, .main-footer {
+    margin-left: 0px;
+}

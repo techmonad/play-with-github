@@ -1,23 +1,24 @@
 package services
 
-import java.io.File
+import javax.inject._
 
-import org.eclipse.jgit.api.Git
+import domains.ContributorStats
+import play.api.libs.ws.WSClient
 
-import scala.collection.JavaConversions._
-import scala.util.Random
+import scala.concurrent.{ExecutionContext, Future}
 
-class GithubService {
+import utils.JsonUtility._
 
-  def getCommitByRepository(gitURL: String) = {
-    val git = Git.cloneRepository.setURI(gitURL)
-      .setDirectory(new File("repos/git-" + Random.nextLong())).setNoCheckout(true).call
-    val commits = git.log.all.call
-    commits.map { commit => (commit.getAuthorIdent.getEmailAddress, 1) }
-      .groupBy { case (name, _) => name }
-      .mapValues(_.size)
+@Singleton
+class GithubService @Inject()(ws: WSClient)(implicit exec: ExecutionContext) {
 
+  val GITHUB_API_BASE_URL = "https://api.github.com"
+
+  def getContributorsStats(repo: String): Future[List[ContributorStats]] = {
+    val url = s"$GITHUB_API_BASE_URL/repos/$repo/stats/contributors"
+    ws.url(url).withHeaders(("Accept", "application/vnd.github.v3+json")).get().map { response =>
+      response.json.asOpt[List[ContributorStats]].getOrElse(List.empty).sortBy(- _.total)
+    }
   }
-
 
 }

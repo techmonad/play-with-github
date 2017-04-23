@@ -1,20 +1,66 @@
-@*
- * This template takes a single argument, a String containing a
- * message to display.
- *@
-@(message: String)
+@* dashboard Template File *@
+@(title: String)(webJarAssets: WebJarAssets)
 
-@*
- * Call the `main` template with two arguments. The first
- * argument is a `String` with the title of the page, the second
- * argument is an `Html` object containing the body of the page.
- *@
-@main("Welcome to Play") {
+@adminlte.main(title)(webJarAssets) {
 
-    @*
-     * Get an `Html` object by calling the built-in Play welcome
-     * template and passing a `String` message.
-     *@
-    @play20.welcome(message, style = "Scala")
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Contributions to master, excluding merge commits
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <!-- Main row -->
+        <div class="row">
+            <!-- Left col -->
+            <div class="col-md-12">
+                <!-- BAR CHART -->
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Bar Chart - Contributors list with additions and deletions</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <canvas id="barChart" style="height:300px"></canvas>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- USERS LIST -->
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Contributors</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div id="contributors" class="box-body no-padding">
+                        <img width="64" height="64" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-128.gif" alt="" />
+                    </div><!-- /.box-body -->
+                    <div class="box-footer text-center">
+                        <a href="javascript::" class="uppercase">View All Users</a>
+                    </div><!-- /.box-footer -->
+                </div><!--/.box -->
+            </div>
+        </div>
+    </section> <!-- /.content -->
+}{
+
+<!-- page script -->
+@tags.javascriptAssets("javascripts/app.js")
 
 }
